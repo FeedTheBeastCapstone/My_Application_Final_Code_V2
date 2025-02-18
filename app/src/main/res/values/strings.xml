@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="scheduling">Scheduling</string>
+    <string name="description">Description</string>
+    <string name="press">Press</string>
+    <string name="add_schedule">Add Schedule</string>
+    <string name="delete_schedule">Delete Schedule</string>
+    <string name="enter_id">Enter ID</string>
+    <string name="enter_time">Enter Time</string>
+    <string name="schedule_feed">Schedule Feed</string>
+    <string name="enter_day">Enter Day</string>
+    <string name="update_schedule">Update Schedule</string>
+    <string name="view_schedules">View Schedules</string>
+    <string name="enter_time_hh_mm">Enter Time (HH:mm)</string>
+    <string name="feeding_time_update">Feeding Time Update</string>
+    <string name="weekly_schedule">Weekly Schedule</string>
+    <string name="add_feeding_time">Add Feeding Time</string>
+    <string name="feeding_updates">Feeding Updates</string>
+    <string name="next_feeding_scheduled_at">Next feeding scheduled at: —:--</string>
+    <string name="manual_feeding">Manual Feeding</string>
+    <string name="feed_now">Feed Now</string>
+    <string name="dispensing_x_ounces_of_food">Dispensing X ounces of food</string>
+    <string name="initiate_feeding">Initiate Feeding</string>
+    <string name="error_logs">Error Logs</string>
+    <string name="clear_all_errors">Clear All Errors</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="log_in">Log In</string>
+    <string name="register">Register</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_email_for_password_reset">Enter email for password reset</string>
+    <string name="switch_to_register">Switch to Register</string>
+    <string name="switch_to_login">Switch to Login</string>
+    <string name="most_recent_error">Most Recent Error:</string>
+    <string name="battery_level_75">Battery Level: 75%</string>
+    <string name="refresh_battery_level">Refresh Battery Level</string>
+    <string name="food_level_50">Food Level: 50%</string>
+    <string name="refresh_food_level">Refresh Food Level</string>
+    <string name="food_level_80">Food Level: 80%</string>
+    <string name="battery_level_70">Battery Level: 70%</string>
+    <string name="next_feeding_today_at_8_00_pm">Next Feeding: Today at 8:00 PM</string>
+    <string name="manual_feed">Manual Feed</string>
+    <string name="recent_errors">Recent Errors:</string>
+    <string name="no_recent_errors">No recent errors.</string>
+    <string name="log_out">Log Out</string>
+    <string name="switch_to_list_view">Switch to List View</string>
+    <string name="back_to_dashboard">Back to Dashboard</string>
+    <string name="battery_level_loading">Battery Level: Loading...</string>
+    <string name="current_errors_0">Current Errors: 0</string>
+    <string name="cat_sleeping">cat sleeping</string>
+    <string name="enter_food_portion_grams">Enter portion (100 grams max)</string>
+    <string name="view_current_errors">View Current Errors</string>
+
+    <string-array name="Main">
+        <item> Schedule </item>
+        <item> Updates </item>
+        <item> Errors </item>
+        <item> Manual </item>
+        <item> Food </item>
+        <item> Battery </item>
+    </string-array>
+
+    <string-array name="Description">
+        <item> Add, Edit, or Delete Schedules </item>
+        <item> Current Information </item>
+        <item> Current Issues </item>
+        <item> Feed Now </item>
+        <item> Food Level </item>
+        <item> Battery Status </item>
+    </string-array>
+
+    <string-array name="days_of_week">
+        <item> Monday </item>
+        <item> Tuesday </item>
+        <item> Wednesday </item>
+        <item> Thursday </item>
+        <item> Friday </item>
+        <item> Saturday </item>
+        <item> Sunday </item>
+    </string-array>
+
+</resources>

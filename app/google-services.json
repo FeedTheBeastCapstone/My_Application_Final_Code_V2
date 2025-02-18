@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "809313189536",
+    "project_id": "automatic-pet-feeder-44998",
+    "storage_bucket": "automatic-pet-feeder-44998.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809313189536:android:68807ce818990e82c553c5",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0xVGSfvV7Ok_SuGNgRV3X2lVsQlb1Y3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

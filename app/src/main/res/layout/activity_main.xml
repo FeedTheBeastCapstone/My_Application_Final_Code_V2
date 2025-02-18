@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F4F6"
+    tools:context=".MainActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ToolbarMain"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="#5C6BC0"
+        android:elevation="4dp"
+        app:titleTextColor="#FFFFFF"
+        app:subtitleTextColor="#FFFFFF"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- FrameLayout Container -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ToolbarMain">
+
+        <ScrollView
+            android:id="@+id/dashboardContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!-- Food Level Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:padding="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="2dp">
+
+                    <TextView
+                        android:id="@+id/foodLevelText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/food_level_80"
+                        android:textSize="16sp"
+                        android:textColor="#333333" />
+
+                    <ProgressBar
+                        android:id="@+id/foodLevelProgress"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:progress="80"
+                        android:progressTint="#4CAF50" />
+                </LinearLayout>
+
+                <!-- Battery Level Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:padding="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="2dp">
+
+                    <TextView
+                        android:id="@+id/batteryLevelText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/battery_level_loading"
+                        android:textSize="16sp"
+                        android:textColor="#333333" />
+
+                    <ProgressBar
+                        android:id="@+id/batteryLevelProgress"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:progress="0"
+                        android:progressTint="#2196F3" />
+                </LinearLayout>
+
+                <!-- Error Section Button -->
+                <Button
+                    android:id="@+id/errorSectionButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_current_errors"
+                    android:textSize="16sp"
+                    android:backgroundTint="#DD2C00"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="2dp" />
+
+                <!-- View Schedules Button -->
+                <Button
+                    android:id="@+id/viewSchedulesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#42A5F5"
+                    android:elevation="2dp"
+                    android:text="@string/view_schedules"
+                    android:textColor="#311B92"
+                    android:textSize="16sp" />
+
+                <!-- Schedule Feeding Button -->
+                <Button
+                    android:id="@+id/scheduleFeedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#42A5F5"
+                    android:elevation="2dp"
+                    android:text="@string/schedule_feed"
+                    android:textColor="#311B92"
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <!-- Manual Feeding Button -->
+                <Button
+                    android:id="@+id/manualFeedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manual_feed"
+                    android:textSize="16sp"
+                    android:backgroundTint="#5C6BC0"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="2dp"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <!-- Image of a Sleeping Cat -->
+                <ImageView
+                    android:id="@+id/catImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:contentDescription="@string/cat_sleeping"
+                    android:src="@drawable/curled_cat"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- Log Out Button -->
+                <Button
+                    android:id="@+id/logoutButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#E57373"
+                    android:elevation="2dp"
+                    android:text="@string/log_out"
+                    android:textColor="#3E2723"
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <!-- Redirect Button -->
+                <Button
+                    android:id="@+id/redirectToListViewButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4CAF50"
+                    android:elevation="2dp"
+                    android:text="@string/switch_to_list_view"
+                    android:textColor="#263238"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- List View Section -->
+        <LinearLayout
+            android:id="@+id/listViewSection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/listViewBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:backgroundTint="#5C6BC0"
+                android:text="@string/back_to_dashboard"
+                android:textColor="#FFFFFF" />
+
+            <ListView
+                android:id="@+id/lvMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:dividerHeight="10dp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>
+
+
