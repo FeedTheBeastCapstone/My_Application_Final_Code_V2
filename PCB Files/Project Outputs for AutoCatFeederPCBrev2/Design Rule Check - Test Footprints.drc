@@ -1,0 +1,81 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\Public\Documents\Altium\AutoCatFeederPCBrev2\Test Footprints.PcbDoc
+Date     : 1/27/2025
+Time     : 3:41:57 PM
+
+Processing Rule : Clearance Constraint (Gap=5mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=5mil) (Max=500mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=15mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=10mil) (Max=800mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=5mil) (All),(All)
+   Violation between Minimum Solder Mask Sliver Constraint: (0.662mil < 5mil) Between Pad C13-1(2020mil,3177.323mil) on Top Layer And Pad C13-2(2020mil,3142.677mil) on Top Layer [Top Solder] Mask Sliver [0.662mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.662mil < 5mil) Between Pad C15-1(2645mil,3175mil) on Top Layer And Pad C15-2(2645mil,3140.354mil) on Top Layer [Top Solder] Mask Sliver [0.662mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.659mil < 5mil) Between Pad U3-1(2858.465mil,3178.386mil) on Top Layer And Via (2810mil,3190mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.659mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2.729mil < 5mil) Between Via (5775mil,3480mil) from Top Layer to Bottom Layer And Via (5780mil,3510mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [2.729mil] / [Bottom Solder] Mask Sliver [2.729mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (4.331mil < 5mil) Between Via (5890mil,1645mil) from Top Layer to Bottom Layer And Via (5910mil,1620mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [4.331mil] / [Bottom Solder] Mask Sliver [4.331mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.922mil < 5mil) Between Via (6205.53mil,1560.53mil) from Top Layer to Bottom Layer And Via (6222.5mil,1537.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.922mil] / [Bottom Solder] Mask Sliver [0.922mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2.315mil < 5mil) Between Via (6255mil,1905mil) from Top Layer to Bottom Layer And Via (6285mil,1905mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [2.315mil] / [Bottom Solder] Mask Sliver [2.315mil]
+Rule Violations :7
+
+Processing Rule : Silk To Solder Mask (Clearance=5mil) (IsPad),(All)
+   Violation between Silk To Solder Mask Clearance Constraint: (4.921mil < 5mil) Between Arc (5180mil,4924.724mil) on Top Overlay And Pad R4-1(5180mil,4891.26mil) on Top Layer [Top Overlay] to [Top Solder] clearance [4.921mil]
+   Violation between Silk To Solder Mask Clearance Constraint: (4.62mil < 5mil) Between Pad L3-1(2765mil,1529.764mil) on Top Layer And Text "L3" (2598.574mil,1536.916mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.62mil]
+Rule Violations :2
+
+Processing Rule : Silk to Silk (Clearance=5mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=25mil) (InNetClass('mSATARx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=5mil) (InNetClass('I210Tx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=5mil) (InNetClass('I210Rx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=5mil) (InNetClass('PCIETx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=5mil) (InNetClass('PCIERx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=25mil) (InNetClass('mSATATx'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=25mil) (InNetClass('PCIECLK'))
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (Disabled)(All)
+Rule Violations :0
+
+
+Violations Detected : 9
+Waived Violations : 0
+Time Elapsed        : 00:00:00

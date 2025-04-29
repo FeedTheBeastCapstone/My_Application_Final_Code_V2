@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Test Footprints.PcbDoc]
+   Generated File[Test Footprints-Plated.TXT]
+   Generated File[Test Footprints-RectHoles-Plated.TXT]
+   Generated File[Test Footprints.LDP]
+   Generated File[Test Footprints.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 3:09:05 PM On 1/27/2025

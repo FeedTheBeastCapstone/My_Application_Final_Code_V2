@@ -1,0 +1,9 @@
+Change Component Footprint: Designator=C7 Old Footprint=FP-C0603-030-0_03-IPC_A New Footprint=FP-C0603-030-0_03-IPC_A
+Add Pin To Net: Unknown Pin: Pin L2-1
+Add Pin To Net: Unknown Pin: Pin L2-2
+Added Pin To Net: NetName=NetC18_1 Pin=Q?-1
+Added Pin To Net: NetName=NetC18_1 Pin=Q?-2
+Added Pin To Net: NetName=NetD1_2 Pin=Q?-5
+Added Pin To Net: NetName=NetD1_2 Pin=Q?-6
+Added Pin To Net: NetName=NetD1_2 Pin=Q?-7
+Added Pin To Net: NetName=NetD1_2 Pin=Q?-9

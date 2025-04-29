@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: C:\Users\Public\Documents\Altium\AutoCatFeederPCBrev2\Test Footprints.PcbDoc
+LayersSetName=Top_Bot_Plated_Thru_Holes|DrillFile=test footprints-plated.txt|DrillLayers=gtl,gbl
+LayersSetName=Top_Bot_Plated_Rect_Holes|DrillFile=test footprints-rectholes-plated.txt|DrillLayers=gtl,gbl

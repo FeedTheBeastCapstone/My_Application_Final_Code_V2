@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Test Footprints.PcbDoc   1/17/2025  8:16:34 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Test Footprints.TXT
+ASCII RectHoles File : Test Footprints-RectHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.178mm (7mil)                                            Round             9         PTH        11.17mm (0.44inch)
+T2      0.254mm (10mil)                                           Round             83        PTH        770.12mm (30.32inch)
+T3      0.711mm (28mil)                                           Round             2         PTH        15.39mm (0.61inch)
+T4      1mm (39mil)                                               Round             3         PTH        5.08mm (0.20inch)
+T5      1.1mm (43mil)                                             Round             16        PTH        107.44mm (4.23inch)
+T6      2mm (79mil)                                               Rectangle         2         PTH        18.79mm (0.74inch)
+T7      5mm (197mil)                                              Round             4         PTH        447.29mm (17.61inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              119
+
+Total Processing Time (hh:mm:ss) : 00:00:00

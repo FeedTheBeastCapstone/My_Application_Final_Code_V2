@@ -1,0 +1,50 @@
+Change Component Footprint: Designator=C7 Old Footprint=FP-C0603-030-0_03-IPC_A New Footprint=FP-C0603-030-0_03-IPC_A
+Add Component: Footprint Not Found QFN50P300X300X100-17N-D
+Add Component: Footprint Not Found CAPAE660X610N
+Add Component: Footprint Not Found CAPC2012X70N
+Add Component: Footprint Not Found GRM32DR61C106KA01L
+Add Component: Footprint Not Found GRM32DR61C106KA01L
+Add Component: Footprint Not Found DIONM5127X229N
+Add Component: Footprint Not Found INDPM5652X300N
+Add Component: Footprint Not Found CSD16327Q3
+Add Pin To Net: Unknown Pin: Pin B1-1
+Add Pin To Net: Unknown Pin: Pin B1-2
+Add Pin To Net: Unknown Pin: Pin B1-3
+Add Pin To Net: Unknown Pin: Pin B1-4
+Add Pin To Net: Unknown Pin: Pin B1-5
+Add Pin To Net: Unknown Pin: Pin B1-6
+Add Pin To Net: Unknown Pin: Pin B1-8
+Add Pin To Net: Unknown Pin: Pin B1-9
+Add Pin To Net: Unknown Pin: Pin B1-10
+Add Pin To Net: Unknown Pin: Pin B1-11
+Add Pin To Net: Unknown Pin: Pin B1-12
+Add Pin To Net: Unknown Pin: Pin B1-13
+Add Pin To Net: Unknown Pin: Pin B1-14
+Add Pin To Net: Unknown Pin: Pin B1-15
+Add Pin To Net: Unknown Pin: Pin B1-16
+Add Pin To Net: Unknown Pin: Pin B1-17
+Add Pin To Net: Unknown Pin: Pin C12-1
+Add Pin To Net: Unknown Pin: Pin C12-2
+Add Pin To Net: Unknown Pin: Pin C18-1
+Add Pin To Net: Unknown Pin: Pin C18-2
+Add Pin To Net: Unknown Pin: Pin C23-1
+Add Pin To Net: Unknown Pin: Pin C23-2
+Add Pin To Net: Unknown Pin: Pin C27-1
+Add Pin To Net: Unknown Pin: Pin C27-2
+Add Pin To Net: Unknown Pin: Pin D2-1
+Add Pin To Net: Unknown Pin: Pin D2-2
+Add Pin To Net: Unknown Pin: Pin L2-1
+Add Pin To Net: Unknown Pin: Pin L2-2
+Add Pin To Net: Unknown Pin: Pin L3-1
+Add Pin To Net: Unknown Pin: Pin L3-2
+Add Pin To Net: Unknown Pin: Pin Q2-3
+Add Pin To Net: Unknown Pin: Pin Q2-4
+Add Pin To Net: Unknown Pin: Pin Q2-8
+Add Class Member: Failed to add class member : Component B1 BQ24232HRGTR
+Add Class Member: Failed to add class member : Component C12 APXF6R3ARA221MF61G
+Add Class Member: Failed to add class member : Component C18 CC0805JRNPO9BN100
+Add Class Member: Failed to add class member : Component C23 GRM32DR71C106KA01L
+Add Class Member: Failed to add class member : Component C27 GRM32DR71C106KA01L
+Add Class Member: Failed to add class member : Component D2 CDBA340L-G
+Add Class Member: Failed to add class member : Component L3 ASPI-0530HI-2R2M-T2
+Add Class Member: Failed to add class member : Component Q2 CSD16327Q3

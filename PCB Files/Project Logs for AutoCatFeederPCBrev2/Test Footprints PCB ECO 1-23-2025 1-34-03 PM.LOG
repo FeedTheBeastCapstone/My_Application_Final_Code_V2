@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=NetC21_1 Pin=Motor Driver-16
+Change Component Comment : Designator=C8 Old Comment=0.1uF New Comment=GRM033C71C104KE14J
+Change Component Comment : Designator=C9 Old Comment=0.1uF New Comment=GRM033C71C104KE14J
+Change Component Comment : Designator=C14 Old Comment=0.1uF New Comment=GRM033C71C104KE14J
+Change Component Designator: OldDesignator=MCU NewDesignator=MD1
+Change Component Designator: OldDesignator=MOTOR NewDesignator=TB3
+Change Component Designator: OldDesignator=Motor Driver NewDesignator=Motor Driver1
+Change Component Designator: OldDesignator=SPARE NewDesignator=TB4
+Change Component Designator: OldDesignator=USDC NewDesignator=TB1
+Change Component Designator: OldDesignator=WS NewDesignator=TB2
+Added Pin To Net: NetName=NetMD1_8 Pin=MD1-8
+Added Pin To Net: NetName=NetMD1_8 Pin=Motor Driver1-16
+Added Net: Name=NetMD1_8
