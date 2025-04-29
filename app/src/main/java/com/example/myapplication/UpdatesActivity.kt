@@ -120,9 +120,40 @@ class UpdatesActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun displayAllFeedings(schedules: List<FeedingSchedule>) { // List is adjusted
+    private fun displayAllFeedings(schedules: List<FeedingSchedule>) {
         updatesList.clear()
-        updatesList.addAll(schedules.map { "${it.feedingTime} ${it.dayOfWeek}, ${it.foodPortion} grams" })
+
+        // Sort schedules properly by time and day
+        val sortedSchedules = schedules.sortedWith(compareBy<FeedingSchedule> {
+            // First, sort by day of week
+            val dayMap = mapOf(
+                "Monday" to 1,
+                "Tuesday" to 2,
+                "Wednesday" to 3,
+                "Thursday" to 4,
+                "Friday" to 5,
+                "Saturday" to 6,
+                "Sunday" to 7
+            )
+            dayMap[it.dayOfWeek] ?: 0
+        }.thenBy {
+            // Then sort by time (in minutes since midnight)
+            val timeParts = it.feedingTime.split(":|\\s+".toRegex())
+            var hour = timeParts[0].toInt()
+            val minute = timeParts[1].toInt()
+            val amPm = timeParts[2]
+
+            // Convert to minutes since midnight for sorting
+            if (amPm == "AM") {
+                hour = if (hour == 12) 0 else hour
+            } else { // PM
+                hour = if (hour == 12) 12 else hour + 12
+            }
+
+            hour * 60 + minute
+        })
+
+        updatesList.addAll(sortedSchedules.map { "${it.feedingTime} ${it.dayOfWeek}, ${it.foodPortion} grams" })
         updatesAdapter.notifyDataSetChanged()
     }
 
@@ -144,7 +175,22 @@ class UpdatesActivity : AppCompatActivity() {
 
         return schedules.minByOrNull { schedule -> // Resets schedule based on day of the week
             val scheduleDay = DayOfWeek.valueOf(schedule.dayOfWeek.uppercase())
-            val scheduleTime = LocalTime.parse(schedule.feedingTime, DateTimeFormatter.ofPattern("h:mm a"))
+
+            // Parse the feeding time properly handling AM/PM
+            val timeParts = schedule.feedingTime.split(":|\\s+".toRegex())
+            var hour = timeParts[0].toInt()
+            val minute = timeParts[1].toInt()
+            val amPm = timeParts[2]
+
+            // Convert to 24-hour time for proper comparison
+            if (amPm == "AM") {
+                hour = if (hour == 12) 0 else hour
+            } else { // PM
+                hour = if (hour == 12) 12 else hour + 12
+            }
+
+            val scheduleTime = LocalTime.of(hour, minute)
+
             val daysUntilFeeding = (scheduleDay.value - currentDayOfWeek.value + 7) % 7
             val adjustedDay = if (daysUntilFeeding == 0 && scheduleTime.isBefore(now)) 7 else daysUntilFeeding
             adjustedDay * 24 * 60 + scheduleTime.hour * 60 + scheduleTime.minute
@@ -187,7 +233,21 @@ class UpdatesActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun calculateNextFeedingDateTime(schedule: FeedingSchedule): LocalDateTime {
         val now = LocalDateTime.now()
-        val scheduleTime = LocalTime.parse(schedule.feedingTime, DateTimeFormatter.ofPattern("h:mm a")) // Parse the feeding time string into a LocalTime object
+
+        // Parse the time with proper AM/PM handling
+        val timeParts = schedule.feedingTime.split(":|\\s+".toRegex())
+        var hour = timeParts[0].toInt()
+        val minute = timeParts[1].toInt()
+        val amPm = timeParts[2]
+
+        // Convert to 24-hour format
+        if (amPm == "AM") {
+            hour = if (hour == 12) 0 else hour
+        } else { // PM
+            hour = if (hour == 12) 12 else hour + 12
+        }
+
+        val scheduleTime = LocalTime.of(hour, minute)
         val scheduleDay = DayOfWeek.valueOf(schedule.dayOfWeek.uppercase()) // Get the scheduled day of the week as an enum
 
         var nextFeeding = now.with(scheduleTime) // Combine current date with the scheduled feeding time
@@ -237,15 +297,3 @@ class UpdatesActivity : AppCompatActivity() {
         unregisterReceiver(feedingUpdateReceiver) // Unregister the feeding update broadcast receiver
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

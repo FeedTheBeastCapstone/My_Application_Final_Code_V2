@@ -104,10 +104,30 @@ class ScheduleActivity : AppCompatActivity() {
     private fun loadFeedingTimesForDay(day: String) { // Loads feeding times for a selected day and sets them in the list adapter
         viewModel.getFeedingSchedulesForDay(day).observe(this) { feedingSchedules ->
             val nonNullFeedingSchedules = feedingSchedules ?: emptyList()
+
+            // Sort by time properly (converting to 24-hour format for comparison)
+            val sortedSchedules = nonNullFeedingSchedules.sortedBy { schedule ->
+                // Parse time to get 24-hour value for sorting
+                val timeParts = schedule.feedingTime.split(":|\\s+".toRegex())
+                var hour = timeParts[0].toInt()
+                val minute = timeParts[1].toInt()
+                val amPm = timeParts[2]
+
+                // Convert to minutes since midnight for easy sorting
+                if (amPm == "AM") {
+                    hour = if (hour == 12) 0 else hour
+                } else { // PM
+                    hour = if (hour == 12) 12 else hour + 12
+                }
+
+                // Return minutes since midnight
+                hour * 60 + minute
+            }
+
             val adapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
-                nonNullFeedingSchedules
+                sortedSchedules
             )
             feedingTimesListView.adapter = adapter
         }
@@ -228,14 +248,22 @@ class ScheduleActivity : AppCompatActivity() {
 
     private fun rescheduleFeedingAlarm(schedule: FeedingSchedule) {
         val calendar = Calendar.getInstance().apply {
-            // Parse the time
+            // Parse the time string
             val timeParts = schedule.feedingTime.split(":|\\s+".toRegex()).toTypedArray()
-            val hour = timeParts[0].toInt()
+            var hour = timeParts[0].toInt()
             val minute = timeParts[1].toInt()
-            val isPm = timeParts[2] == "PM"
+            val amPm = timeParts[2]
 
-            // Set the correct hour
-            set(Calendar.HOUR_OF_DAY, if (isPm && hour != 12) hour + 12 else if (!isPm && hour == 12) 0 else hour)
+            // Convert to 24-hour format - FIXED TIME CONVERSION LOGIC
+            if (amPm == "AM") {
+                // For AM: 12 AM should be 0 hours, all others stay the same
+                hour = if (hour == 12) 0 else hour
+            } else {
+                // For PM: 12 PM should be 12 hours, all others add 12
+                hour = if (hour == 12) 12 else hour + 12
+            }
+
+            set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
 
@@ -300,24 +328,10 @@ class ScheduleActivity : AppCompatActivity() {
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, adjustedTriggerTime, pendingIntent)
     }
+
     private fun formatTime(hourOfDay: Int, minute: Int): String { // Time format in string
         val hour = if (hourOfDay % 12 == 0) 12 else hourOfDay % 12
         val amPm = if (hourOfDay < 12) "AM" else "PM"
         return String.format("%d:%02d %s", hour, minute, amPm)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
