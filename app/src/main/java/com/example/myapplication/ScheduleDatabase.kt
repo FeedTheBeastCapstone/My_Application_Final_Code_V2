@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-// Necessary imports for database handling, Firebase, and threading
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -10,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+// Reminder that this may need to be removed, Firebase handles database (Original build was local database on the application)
 // Define the Room database with FeedingSchedule as the entity
 // Version is set to 2, and exportSchema is false to avoid exporting schema metadata
 @Database(entities = [FeedingSchedule::class], version = 2, exportSchema = false)

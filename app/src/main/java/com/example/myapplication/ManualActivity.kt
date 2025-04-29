@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -47,21 +48,28 @@ class ManualActivity : AppCompatActivity() {
                 if (foodPortion >= 1.0 && foodPortion < 100.1) {
                     updateFeedingInFirebase(foodPortion)
                 } else {
-                    Toast.makeText(this, "Please enter a valid portion size", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please enter a valid portion size", Toast.LENGTH_SHORT).show() // Incorrect input
                 }
             } else {
-                Toast.makeText(this, "Please enter a portion size", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter a portion size", Toast.LENGTH_SHORT).show() // First entering an input
             }
+        }
+
+        val dashboardButton: Button = findViewById(R.id.dashboardButton)
+        // Set click listener
+        dashboardButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java)) // Push to Dashboard
+            finish() // Close ErrorsActivity
         }
     }
 
     private fun checkForExistingFeeding() {
-        database.orderByChild("timestamp")
+        database.orderByChild("timestamp") // Check firebase for node
             .limitToLast(1)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        for (feedingSnapshot in snapshot.children) {
+                        for (feedingSnapshot in snapshot.children) { // Replace the node value
                             currentFeedingKey = feedingSnapshot.key
                             break
                         }
@@ -70,7 +78,7 @@ class ManualActivity : AppCompatActivity() {
 
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@ManualActivity,
-                        "Error checking existing feeding: ${error.message}",
+                        "Error checking existing feeding: ${error.message}", // Possible error case
                         Toast.LENGTH_SHORT).show()
                 }
             })
@@ -79,27 +87,25 @@ class ManualActivity : AppCompatActivity() {
     private fun updateFeedingInFirebase(foodPortion: Double) {
         val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-        val feedingData = mapOf(
+        // Reference to the existing "Manual_feedings" node inside "ManualFeedings"
+        val feedingEntryRef = database.child("Manual_feedings")
+
+        // Update the existing node with new values
+        val updateData = mapOf(
             "foodPortion" to foodPortion,
-            "timestamp" to timestamp
+            "timestamp" to timestamp,
+            "status" to true // Update status to true
         )
 
-        // If we have an existing key, update it; otherwise create new entry
-        val databaseRef = if (currentFeedingKey != null) {
-            database.child("Manual_feedings")
-        } else {
-            database.push()
-        }
-
-        databaseRef.setValue(feedingData)
+        feedingEntryRef.updateChildren(updateData) // Update based on the listener
             .addOnSuccessListener {
                 Toast.makeText(this,
-                    "Feeding of $foodPortion grams updated at $timestamp",
+                    "Feeding updated: $foodPortion grams at $timestamp",
                     Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this,
-                    "Failed to update feeding: ${e.message}",
+                    "Failed to update feeding: ${e.message}", // Possible error case
                     Toast.LENGTH_SHORT).show()
             }
     }

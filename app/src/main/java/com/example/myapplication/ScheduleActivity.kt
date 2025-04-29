@@ -33,6 +33,13 @@ class ScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
+        val dashboardButton: Button = findViewById(R.id.dashboardButton) // Dashboard Button
+        dashboardButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java) // Push to Dashboard
+            startActivity(intent)
+            finish() // Close ScheduleActivity
+        }
+
         // Initialize UI elements
         dayOfWeekSpinner = findViewById(R.id.dayOfWeekSpinner)
         addTimeButton = findViewById(R.id.addTimeButton)
@@ -80,21 +87,21 @@ class ScheduleActivity : AppCompatActivity() {
         }
     }
 
-    private fun syncSchedulesToFirebase(schedules: List<FeedingSchedule>) {
+    private fun syncSchedulesToFirebase(schedules: List<FeedingSchedule>) { // Sync to Firebase
         firebaseRef.setValue(schedules).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Schedules synced to Firebase", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Schedules synced to Firebase", Toast.LENGTH_SHORT).show() // Good connection
             } else {
                 Toast.makeText(
                     this,
-                    "Failed to sync schedules: ${task.exception?.message}",
+                    "Failed to sync schedules: ${task.exception?.message}", // Error or no internet
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
-    private fun loadFeedingTimesForDay(day: String) {
+    private fun loadFeedingTimesForDay(day: String) { // Loads feeding times for a selected day and sets them in the list adapter
         viewModel.getFeedingSchedulesForDay(day).observe(this) { feedingSchedules ->
             val nonNullFeedingSchedules = feedingSchedules ?: emptyList()
             val adapter = ArrayAdapter(
@@ -106,6 +113,7 @@ class ScheduleActivity : AppCompatActivity() {
         }
     }
 
+    // Shows a dialog to pick a feeding time
     private fun showTimeAndPortionDialog() {
         val timePickerDialog = TimePickerDialog(
             this,
@@ -123,6 +131,7 @@ class ScheduleActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
+    // Shows a dialog for entering food portion (in grams) after selecting time
     private fun showPortionInputDialog(feedingTime: String, selectedDay: String, triggerAtMillis: Long) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Enter Portion (100 grams max)")
@@ -133,38 +142,40 @@ class ScheduleActivity : AppCompatActivity() {
         builder.setView(input)
 
         builder.setPositiveButton("OK") { _, _ ->
-            val portionText = input.text.toString().trim()
+            val portionText = input.text.toString().trim() // Value entry
             val foodPortion = portionText.toDoubleOrNull()
 
-            if (foodPortion != null && foodPortion >= 1.0 && foodPortion < 100.1) {
+            if (foodPortion != null && foodPortion >= 1.0 && foodPortion < 100.1) { // Force values between 0 and 100 (no negatives or 101 percentage)
                 val schedule = FeedingSchedule(dayOfWeek = selectedDay, feedingTime = feedingTime, foodPortion = foodPortion)
                 viewModel.insert(schedule)
                 scheduleFeedingAlarm(this, triggerAtMillis, schedule.id)
-                Toast.makeText(this, "Feeding schedule added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Feeding schedule added", Toast.LENGTH_SHORT).show() // Text if good
             } else {
-                Toast.makeText(this, "Invalid portion, please enter a valid number", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Invalid portion, please enter a valid number", Toast.LENGTH_SHORT).show() // Value check
             }
         }
 
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() } // Cancel the feed
         builder.show()
     }
 
+    // Dialog to choose between editing or deleting a schedule
     private fun showModifyOrDeleteDialog(schedule: FeedingSchedule) {
         AlertDialog.Builder(this)
-            .setTitle("Modify Feeding Schedule")
-            .setMessage("What would you like to do?")
-            .setPositiveButton("Edit") { _, _ -> showEditTimeAndPortionDialog(schedule) }
+            .setTitle("Modify Feeding Schedule") // Title
+            .setMessage("What would you like to do?") // Prompt
+            .setPositiveButton("Edit") { _, _ -> showEditTimeAndPortionDialog(schedule) } // Edit or Delete
             .setNegativeButton("Delete") { _, _ ->
                 viewModel.delete(schedule)
                 cancelFeedingAlarm(schedule.id)
-                Toast.makeText(this, "Feeding schedule deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Feeding schedule deleted", Toast.LENGTH_SHORT).show() // Confirm prompt
             }
             .show()
     }
 
+    // Cancels a previously scheduled alarm by ID
     private fun cancelFeedingAlarm(scheduleId: Long) {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager // Updates the alarm manager so alarm does not trigger
         val intent = Intent(this, FeedingAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             this,
@@ -176,11 +187,12 @@ class ScheduleActivity : AppCompatActivity() {
         pendingIntent.cancel()
     }
 
+    // Shows a time picker dialog for editing the schedule time
     private fun showEditTimeAndPortionDialog(schedule: FeedingSchedule) {
         val timePickerDialog = TimePickerDialog(
             this,
             { _, hourOfDay, minute ->
-                val newTime = formatTime(hourOfDay, minute)
+                val newTime = formatTime(hourOfDay, minute) // Edits the time
                 schedule.feedingTime = newTime
                 showEditPortionInputDialog(schedule)
             }, 12, 0, false
@@ -188,6 +200,7 @@ class ScheduleActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
+    // Shows input dialog for editing food portion value
     private fun showEditPortionInputDialog(schedule: FeedingSchedule) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Edit Food Portion (grams)")
@@ -248,12 +261,13 @@ class ScheduleActivity : AppCompatActivity() {
         scheduleFeedingAlarm(this, calendar.timeInMillis, schedule.id)
     }
 
+    // Schedule Alarm
     private fun scheduleFeedingAlarm(context: Context, triggerAtMillis: Long, scheduleId: Long) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, FeedingAlarmReceiver::class.java)
         intent.putExtra("scheduleId", scheduleId)
 
-        val pendingIntent = PendingIntent.getBroadcast(
+        val pendingIntent = PendingIntent.getBroadcast( // Broadcast pending
             context,
             scheduleId.toInt(),
             intent,
@@ -280,13 +294,13 @@ class ScheduleActivity : AppCompatActivity() {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM) // Alarm manager ping
             context.startActivity(intent)
         }
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, adjustedTriggerTime, pendingIntent)
     }
-    private fun formatTime(hourOfDay: Int, minute: Int): String {
+    private fun formatTime(hourOfDay: Int, minute: Int): String { // Time format in string
         val hour = if (hourOfDay % 12 == 0) 12 else hourOfDay % 12
         val amPm = if (hourOfDay < 12) "AM" else "PM"
         return String.format("%d:%02d %s", hour, minute, amPm)

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -19,11 +20,14 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".battery_progress_drawable_ok"
+            android:name=".MoreInfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".battery_progress_drawable"
-            android:exported="false" />
+
+        <service
+            android:name=".ErrorMonitoringService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -58,6 +62,14 @@
         <receiver
             android:name=".FeedingAlarmReceiver"
             android:exported="true" />
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

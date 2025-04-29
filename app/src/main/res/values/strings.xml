@@ -51,6 +51,13 @@
     <string name="cat_sleeping">cat sleeping</string>
     <string name="enter_food_portion_grams">Enter portion (100 grams max)</string>
     <string name="view_current_errors">View Current Errors</string>
+    <string name="feeder">Feeder</string>
+    <string name="ok">OK</string>
+    <string name="power">Power</string>
+    <string name="connection">Connection</string>
+    <string name="system_status">System Status</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="more_info">More Info</string>
 
     <string-array name="Main">
         <item> Schedule </item>

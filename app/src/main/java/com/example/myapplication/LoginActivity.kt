@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
-// Activity for handling user login, registration, and password reset functionality
 class LoginActivity : AppCompatActivity() {
 
     // Firebase authentication instance
@@ -46,13 +45,13 @@ class LoginActivity : AppCompatActivity() {
         // Default to login mode on app start
         showLoginUI()
 
-        // Switch to register mode when the "Switch to Register" button is clicked
+        // Switch to register mode
         switchToRegisterButton.setOnClickListener { showRegisterUI() }
 
-        // Switch back to login mode when the "Switch to Login" button is clicked
+        // Switch back to login mode
         switchToLoginButton.setOnClickListener { showLoginUI() }
 
-        // Handle login functionality when the login button is clicked
+        // Handle login logic
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -64,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Handle user registration when the register button is clicked
+        // Handle registration logic
         registerButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -79,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Handle password reset when the "Forgot Password?" text is clicked
+        // Handle password reset
         resetPasswordTextView.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             if (email.isEmpty()) {
@@ -90,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // Show the UI components for login mode
+    // Show login UI elements
     private fun showLoginUI() {
         loginButton.visibility = View.VISIBLE
         registerButton.visibility = View.GONE
@@ -100,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
         switchToLoginButton.visibility = View.GONE
     }
 
-    // Show the UI components for register mode
+    // Show register UI elements
     private fun showRegisterUI() {
         loginButton.visibility = View.GONE
         registerButton.visibility = View.VISIBLE
@@ -114,34 +113,58 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                val user = auth.currentUser
 
-                // Save the login time for session management
-                val sharedPrefs = getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                sharedPrefs.edit().putLong("lastLoginTime", System.currentTimeMillis()).apply()
+                // Reload user to make sure we get the latest email verification status
+                user?.reload()?.addOnCompleteListener {
+                    if (user.isEmailVerified) {
+                        // Email is verified — allow access
+                        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
-                // Navigate to the main activity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Close LoginActivity
+                        // Record login time
+                        MainActivity.updateLoginTime(this)
+
+                        // Launch main activity
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish() // Close LoginActivity
+                    } else {
+                        // Email not verified — deny access
+                        auth.signOut()
+                        Toast.makeText(this, "Please verify your email before logging in.", Toast.LENGTH_LONG).show()
+                    }
+                }
             } else {
+                // Login failed
                 Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Handle user registration with email and password
+    // Handle user registration with email verification
     private fun registerUser(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
+                val user = auth.currentUser
+
+                // Send email verification
+                user?.sendEmailVerification()?.addOnCompleteListener { verifyTask ->
+                    if (verifyTask.isSuccessful) {
+                        Toast.makeText(this, "Registration successful! Please check your email to verify your account.", Toast.LENGTH_LONG).show()
+                        // Do NOT log them in until they verify
+                        auth.signOut()
+                    } else {
+                        // Verification email failed
+                        Toast.makeText(this, "Failed to send verification email: ${verifyTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
+                // Registration failed
                 Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Send a password reset email to the user
+    // Send password reset email
     private fun resetPassword(email: String) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -152,6 +175,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
+
 
 
 

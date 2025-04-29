@@ -45,7 +45,7 @@ class NotificationHelper(private val context: Context) {
 
         // Build the notification
         val notification = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(android.R.drawable.ic_popup_reminder) // Placeholder icon, replace with your app's icon
+            .setSmallIcon(android.R.drawable.ic_popup_reminder) // Placeholder icon
             .setContentTitle("Cat Feeding Reminder")
             .setContentText("Scheduled Feeding Complete")
             .setPriority(NotificationCompat.PRIORITY_HIGH) // High priority for visibility

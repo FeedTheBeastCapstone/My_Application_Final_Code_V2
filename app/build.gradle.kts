@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.messaging)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)              // Firebase Authentication
     implementation(libs.appcompat)                  // AndroidX AppCompat
